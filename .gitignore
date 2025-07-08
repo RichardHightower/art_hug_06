@@ -32,3 +32,4 @@ data/
 models/
 *.log
 .cache/
+notebooks/.ipynb_checkpoints
