@@ -1,0 +1,74 @@
+version: '3'
+
+vars:
+  PYTHON_VERSION: 3.12.9
+
+tasks:
+  default:
+    desc: "Show available tasks"
+    cmds:
+      - task --list
+
+  setup:
+    desc: "Set up the Python environment and install dependencies"
+    cmds:
+      - pyenv install -s {{.PYTHON_VERSION}}
+      - pyenv local {{.PYTHON_VERSION}}
+      - poetry install
+      - poetry config virtualenvs.in-project true
+      - 'echo "Setup complete! Activate with: source .venv/bin/activate"'
+
+  run:
+    desc: "Run all examples"
+    cmds:
+      - poetry run python src/main.py
+
+  run-simple:
+    desc: "Run key examples (faster)"
+    cmds:
+      - poetry run python src/main_simple.py
+
+  run-named-entity-recognition:
+    desc: "Run named entity recognition examples"
+    cmds:
+      - poetry run python src/named_entity_recognition.py
+
+  run-question-answering:
+    desc: "Run question answering examples"
+    cmds:
+      - poetry run python src/question_answering.py
+
+  run-text-generation:
+    desc: "Run text generation examples"
+    cmds:
+      - poetry run python src/text_generation.py
+
+  test:
+    desc: "Run all tests"
+    cmds:
+      - poetry run pytest tests/ -v
+
+  format:
+    desc: "Format code with Black and Ruff"
+    cmds:
+      - poetry run black src/ tests/
+      - poetry run ruff check --fix src/ tests/
+
+  clean:
+    desc: "Clean up generated files"
+    cmds:
+      - find . -type d -name "__pycache__" -exec rm -rf {} +
+      - find . -type f -name "*.pyc" -delete
+      - rm -rf .pytest_cache
+      - rm -rf .ruff_cache
+      - rm -rf .mypy_cache
+
+  notebook:
+    desc: "Launch Jupyter notebook"
+    cmds:
+      - poetry run jupyter notebook notebooks/
+
+  lab:
+    desc: "Launch Jupyter Lab"
+    cmds:
+      - poetry run jupyter lab notebooks/

@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "nlp-tasks"
+version = "0.1.0"
+description = "Common NLP Tasks with Transformers - Working Examples"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+transformers = "^4.36.0"
+torch = "^2.1.0"
+accelerate = "^0.25.0"
+python-dotenv = "^1.0.0"
+pandas = "^2.1.0"
+numpy = "^1.26.0"
+matplotlib = "^3.8.0"
+seaborn = "^0.13.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+black = "^24.0.0"
+ruff = "^0.6.0"
+jupyter = "^1.0.0"
+ipykernel = "^6.29.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM"]
